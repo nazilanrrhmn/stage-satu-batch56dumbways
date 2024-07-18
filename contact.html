@@ -3,18 +3,63 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Creating Navbar and Contact Form</title>
-    <link rel="stylesheet" href="./Assets/css/style.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <title>Personal Website</title>
   </head>
   <body>
-    <div class="container-header">
-      <div class="navbar-right">
-        <div class="nav">Home</div>
-        <div class="nav">Blog</div>
+    <nav>
+      <div class="left">
+        <ul>
+          <img class="logo" src="./Assets/img/dumbways.png" alt="logo-image" />
+
+          <li class="active">
+            <a href="./index.html">Home</a>
+          </li>
+          <li>
+            <a href="./contact.html">Blog</a>
+          </li>
+        </ul>
       </div>
-      <div class="navbar-left">
-        <button>Contact Me</button>
+
+      <div class="right">
+        <a href="./contact.html">Contact Me</a>
       </div>
-    </div>
+    </nav>
+
+    <!-- formulir -->
+    <form>
+      <div>
+        <label for="nameInput">Name</label>
+        <input
+          id="nameInput"
+          type="text"
+          required
+          placeholder="input your name"
+        />
+      </div>
+
+      <div>
+        <label for="emailInput">Email</label>
+        <input id="emailInput" type="email" />
+      </div>
+
+      <div>
+        <label for="position">Position</label>
+        <select id="position">
+          <option hidden>Select Option!</option>
+          <option>Frontend Developer</option>
+          <option>Backend Developer</option>
+          <option>Fullstack Developer</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="address">Address</label> <textarea id="address"></textarea>
+      </div>
+
+      <div>
+        <button type="submit">Submit</button>
+      </div>
+    </form>
   </body>
 </html>
