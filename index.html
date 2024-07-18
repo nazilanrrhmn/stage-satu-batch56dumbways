@@ -3,26 +3,128 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <!-- My CSS -->
-    <link rel="stylesheet" href="./Assets/css/style.css" />
-    <!-- Icons Awesome -->
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <!-- Icons -->
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/fontawesome.min.css"
-      integrity="sha512-UuQ/zJlbMVAw/UU8vVBhnI4op+/tFOpQZVT+FormmIEhRSCnJWyHiBbEVgM4Uztsht41f3FzVWgLuwzUqOObKw=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
     />
+    <title>Personal Website</title>
+    <!-- My Style -->
+    <style type="text/css">
+      .card-body {
+        display: flex;
+        justify-content: space-between;
+        width: 80%;
+        margin: auto;
+        padding-top: 80px;
+        font-family: "Poppins", sans-serif;
+      }
+      .card-judul {
+        font-size: 20px;
+        font-weight: bold;
+      }
+      .card-text {
+        text-align: justify;
+        padding-bottom: 14px;
+      }
+      .card-button {
+        text-decoration: none;
+        background-color: black;
+        color: white;
+        padding: 8px 20px;
+        border-radius: 50px;
+      }
+      .card-cv {
+        padding: 14px 0;
+      }
+      .card-sosmed {
+        text-decoration: none;
+        text-align: center;
+        padding-bottom: 28px;
+      }
+      .card-icons {
+        color: black;
+        margin: 14px;
+      }
+
+      .card-right {
+        width: 60%;
+      }
+
+      .card-profiles {
+        border: 1px solid black;
+        border-radius: 10px;
+        width: 35%;
+        text-align: center;
+      }
+      .card-img {
+        width: 100%;
+      }
+      .card-name {
+        padding-top: 10px;
+        margin: 0;
+      }
+      .card-sub {
+        margin: 0;
+        padding-bottom: 20px;
+      }
+    </style>
   </head>
   <body>
-    <div class="box">
-      <img
-        src="https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcTMTuz5SjiCEP6VYfi-iWmoXj4ODFDHz-qGhp0Nd3OTaN4zYdn9OqgncGQUpN8UsY8Uxc30pOAqTbCvmbc"
-        alt="Profile Photo"
-        class="img-profile"
-      />
-      <h1 class="profile-name">Leo Messi</h1>
+    <!-- Navbar -->
+    <nav>
+      <div class="left">
+        <ul>
+          <img class="logo" src="./Assets/img/dumbways.png" alt="logo-image" />
+          <li class="active">
+            <a href="./index.html">Home</a>
+          </li>
+          <li>
+            <a href="./contact.html">Blog</a>
+          </li>
+        </ul>
+      </div>
+      <div class="right">
+        <a href="./contact.html">Contact Me</a>
+      </div>
+    </nav>
+    <!-- End -->
+
+    <!-- Card Profile -->
+    <div class="card-body">
+      <div class="card-right">
+        <h3 class="card-judul">Hi Welcome to my hut</h3>
+        <p class="card-text">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla
+          sapiente omnis provident odio, minus id nemo! Ullam, veritatis ducimus
+          qui, illum error maxime perferendis quam, doloribus ex vitae fugit
+          officiis amet reiciendis repellendus nobis! Autem illum et nesciunt
+          ea, corrupti quisquam, a delectus natus sed assumenda qui at earum
+          officia atque repellendus odit magnam similique in nobis? Aperiam,
+          quia dolore.
+        </p>
+        <a href="#" class="card-button">contact</a>
+        <p class="card-cv">download CV <i class="fa fa-download fa-1x"></i></p>
+        <div class="card-sosmed">
+          <a href="" class="card-icons"><i class="fa fa-linkedin fa-2x"></i></a>
+          <a href="" class="card-icons"
+            ><i class="fa fa-instagram fa-2x"></i
+          ></a>
+          <a href="" class="card-icons"><i class="fa fa-facebook fa-2x"></i></a>
+          <a href="" class="card-icons"><i class="fa fa-github fa-2x"></i></a>
+        </div>
+      </div>
+      <div class="card-profiles">
+        <img
+          src="https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcTMTuz5SjiCEP6VYfi-iWmoXj4ODFDHz-qGhp0Nd3OTaN4zYdn9OqgncGQUpN8UsY8Uxc30pOAqTbCvmbc"
+          alt="Profile Photo"
+          class="card-img"
+        />
+        <h2 class="card-name">Leo Messi</h2>
+        <p class="card-sub">Fullstack Developer</p>
+      </div>
     </div>
+    <!-- End -->
   </body>
 </html>
