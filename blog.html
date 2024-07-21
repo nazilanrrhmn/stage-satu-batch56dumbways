@@ -1,16 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Creating Blog Page</title>
     <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="stylesheet" href="./assets/css/blog.css" />
     <!-- Icons -->
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
     />
-    <title>Personal Website</title>
-    <!-- My Style -->
+    <!-- My CSS -->
     <style type="text/css">
       .card-body {
         display: flex;
@@ -71,6 +69,7 @@
       }
     </style>
   </head>
+
   <body>
     <!-- Navbar -->
     <nav>
@@ -84,11 +83,8 @@
           <li class="active">
             <a href="./index.html">Home</a>
           </li>
-          <!-- <li>
-            <a href="./blog.html">Blog</a>
-          </li> -->
           <li>
-            <a href="./my_project.html">Projects</a>
+            <a href="./blog.html">Blog</a>
           </li>
         </ul>
       </div>
@@ -98,40 +94,55 @@
     </nav>
     <!-- End -->
 
-    <!-- Card Profile -->
-    <div class="card-body">
-      <div class="card-right">
-        <h3 class="card-judul">Hi Welcome to my hut</h3>
-        <p class="card-text">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla
-          sapiente omnis provident odio, minus id nemo! Ullam, veritatis ducimus
-          qui, illum error maxime perferendis quam, doloribus ex vitae fugit
-          officiis amet reiciendis repellendus nobis! Autem illum et nesciunt
-          ea, corrupti quisquam, a delectus natus sed assumenda qui at earum
-          officia atque repellendus odit magnam similique in nobis? Aperiam,
-          quia dolore.
-        </p>
-        <a href="#" class="card-button">contact</a>
-        <p class="card-cv">download CV <i class="fa fa-download fa-1x"></i></p>
-        <div class="card-sosmed">
-          <a href="" class="card-icons"><i class="fa fa-linkedin fa-2x"></i></a>
-          <a href="" class="card-icons"
-            ><i class="fa fa-instagram fa-2x"></i
-          ></a>
-          <a href="" class="card-icons"><i class="fa fa-facebook fa-2x"></i></a>
-          <a href="" class="card-icons"><i class="fa fa-github fa-2x"></i></a>
+    <!-- Blog -->
+    <!-- Form -->
+
+    <div class="blog">
+      <div class="blog-form">
+        <div class="form-container">
+          <form onsubmit="addBlog(event)">
+            <h1>Create Post Blog</h1>
+            <div>
+              <label for="input-blog-title">Title</label>
+              <input id="input-blog-title" />
+            </div>
+            <div>
+              <label for="input-blog-start">Start</label>
+              <input id="input-blog-start" />
+              <label for="input-blog-end">End</label>
+              <input id="input-blog-end" />
+            </div>
+            <div>
+              <label for="input-blog-content">Content</label>
+              <textarea id="input-blog-content"></textarea>
+            </div>
+            <div>
+              <label>Upload Image</label>
+              <div class="input-blog-image-group">
+                <label for="input-blog-image">
+                  <p>Attach File</p>
+                  <img
+                    src="./assets/icons/attach.png"
+                    alt="file"
+                    style="width: 40px"
+                  />
+                </label>
+                <input type="file" id="input-blog-image" hidden />
+              </div>
+            </div>
+            <div class="button-group">
+              <button>Post Blog</button>
+            </div>
+          </form>
         </div>
       </div>
-      <div class="card-profiles">
-        <img
-          src="https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcTMTuz5SjiCEP6VYfi-iWmoXj4ODFDHz-qGhp0Nd3OTaN4zYdn9OqgncGQUpN8UsY8Uxc30pOAqTbCvmbc"
-          alt="Profile Photo"
-          class="card-img"
-        />
-        <h2 class="card-name">Leo Messi</h2>
-        <p class="card-sub">Fullstack Developer</p>
+
+      <div id="test"></div>
+      <hr class="line" />
+      <div id="contents" class="blog-list">
+        <!-- dynamic content would be here -->
       </div>
     </div>
-    <!-- End -->
+    <script src="./assets/js/blog.js"></script>
   </body>
 </html>
