@@ -102,7 +102,7 @@
 
   <!-- Creating My Project -->
   <div class="project">
-    <form id="myForm">
+    <form id="myForm" onsubmit="addProject(event)">
       <h1>ADD MY PROJECT</h1>
       <div>
         <label for="projectName">Project Name</label>
@@ -162,9 +162,9 @@
   <div class="title">
     <h1>MY PROJECT</h1>
   </div>
-  <div class="container">
-    <div class="container-card">
-      <div>
+  <div class="container" id="content">
+    <!-- <div class="container-card" id="content"> -->
+      <!-- <div>
         <img src="./assets/images/luffy.jpg" alt="smartphone">
         <h4><a href="./detail_project.html">Dumbways Mobile App - 2021</a></h4>
         <span id="totalMonth">durasi : 3 bulan</span>
@@ -178,45 +178,11 @@
           <button class="edit-button">edit</button>
           <button class="delete-button">delete</button>
         </div>
-      </div>
-    </div>
-    <div class="container-card">
-      <div>
-        <img src="./assets/images/luffy.jpg" alt="smartphone">
-        <h4><a href="./detail_project.html">Dumbways Mobile App - 2021</a></h4>
-        <span id="totalMonth">durasi : 3 bulan</span>
-        <p>App that used for dumbways student, it was deployed and can be downloaded on playstore. Happy download</p>
-        <div class="container-logo">
-          <i class="fa-brands fa-google-play"></i>
-          <i class="fa-brands fa-android"></i>
-          <i class="fa-brands fa-java"></i>
-        </div>
-        <div class="container-button">
-          <button class="edit-button">edit</button>
-          <button class="delete-button">delete</button>
-        </div>
-      </div>
-    </div>
-    <div class="container-card">
-      <div>
-        <img src="./assets/images/luffy.jpg" alt="smartphone">
-        <h4><a href="./detail_project.html">Dumbways Mobile App - 2021</a></h4>
-        <span id="totalMonth">durasi : 3 bulan</span>
-        <p>App that used for dumbways student, it was deployed and can be downloaded on playstore. Happy download</p>
-        <div class="container-logo">
-          <i class="fa-brands fa-google-play"></i>
-          <i class="fa-brands fa-android"></i>
-          <i class="fa-brands fa-java"></i>
-        </div>
-        <div class="container-button">
-          <button class="edit-button">edit</button>
-          <button class="delete-button">delete</button>
-        </div>
-      </div>
-    </div>
+      </div> -->
+    <!-- </div> -->
   </div>
   <!-- End Card -->
   <!-- End -->
-  <script src="./assets/js/script.js"></script>
+  <script src="./assets/js/project.js"></script>
 </body>
 </html>
