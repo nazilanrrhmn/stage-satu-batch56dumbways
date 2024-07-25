@@ -1,177 +1,147 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
-    <title>Creating Blog Page</title>
-    <link rel="stylesheet" href="./assets/css/style.css" />
-    <!-- FontAwesome -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="./assets/img/icons.png"
+      type="image/x-icon"
+    />
+    <title>B56 - Personal Projects</title>
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
     />
-    <!-- My CSS -->
-    <style type="text/css">
-      .card-body {
-        display: flex;
-        justify-content: space-between;
-        width: 80%;
-        margin: auto;
-        padding-top: 80px;
-        font-family: "Poppins", sans-serif;
-      }
-      .card-judul {
-        font-size: 20px;
-        font-weight: bold;
-      }
-      .card-text {
-        text-align: justify;
-        padding-bottom: 14px;
-      }
-      .card-button {
-        text-decoration: none;
-        background-color: black;
-        color: white;
-        padding: 8px 20px;
-        border-radius: 50px;
-      }
-      .card-cv {
-        padding: 14px 0;
-      }
-      .card-sosmed {
-        text-decoration: none;
-        text-align: center;
-        padding-bottom: 28px;
-      }
-      .card-icons {
-        color: black;
-        margin: 14px;
-      }
-
-      .card-right {
-        width: 60%;
-      }
-
-      .card-profiles {
-        border: 1px solid black;
-        border-radius: 10px;
-        width: 35%;
-        text-align: center;
-      }
-      .card-img {
-        width: 100%;
-      }
-      .card-name {
-        padding-top: 10px;
-        margin: 0;
-      }
-      .card-sub {
-        margin: 0;
-        padding-bottom: 20px;
-      }
-    </style>
+    <link rel="stylesheet" href="./assets/css/main.css" />
   </head>
-
   <body>
-    <!-- Navbar -->
-    <nav>
-      <div class="left">
-        <ul>
-          <img
-            class="logo"
-            src="./assets/images/dumbways.png"
-            alt="logo-image"
-          />
-          <li class="active">
-            <a href="./index.html">Home</a>
-          </li>
-          <!-- <li>
-            <a href="./blog.html">Blog</a>
-          </li> -->
+    <!-- Navbar Start -->
+    <nav class="navbar">
+      <ul class="navbar-ul">
+        <div class="navbar-left">
           <li>
-            <a href="./my_project.html">Projects</a>
+            <img
+              src="./assets/img/logo-zs.png"
+              alt="navbar-logo"
+              class="navbar-logo"
+            />
           </li>
-        </ul>
-      </div>
-      <div class="right">
-        <a href="./contact.html">Contact Me</a>
-      </div>
+          <li><a href="index.html" class="navbar-link active"> Home </a></li>
+          <li><a href="my_project.html" class="navbar-link"> Projects </a></li>
+          <li><a href="" class="navbar-link"> Testimonials </a></li>
+        </div>
+        <div class="navbar-right">
+          <li>
+            <a href="contact.html" class="navbar-contact-btn"> Contact </a>
+          </li>
+          <button id="hamburger-button" onclick="toggleHamburger()">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+        </div>
+      </ul>
     </nav>
-    <!-- End -->
+    <div class="hamburger-container hide">
+      <a href="index.html" class="hamburger-nav-link hamburger-active">
+        Home
+      </a>
+      <a href="my_project.html" class="hamburger-nav-link"> Projects </a>
+      <a href="#" class="hamburger-nav-link"> Testimonials </a>
+      <a href="contact.html" class="hamburger-nav-link"> Contact </a>
+    </div>
+    <!-- Navbar End -->
 
-    <!-- Detail Project -->
-    <div>
-      <div class="title">
-        <h1>Dumbways Web App</h1>
-      </div>
-      <div class="container-detail" style="flex-direction: column">
-        <div class="container-content">
-          <div class="Image">
-            <img src="./assets/images/luffy.jpg" alt="Image-detail" />
+    <!-- My Hero -->
+    <div class="project-detail">
+      <h1>Dumbways Web App</h1>
+      <div class="project-content">
+        <img
+          class="detail-img"
+          src="./assets/img/luffy.jpg"
+          alt="project image"
+        />
+        <div class="detail-data">
+          <div>
+            <h2>Duration</h2>
+            <p>
+              <i class="fa-solid fa-calendar-days fa-xl"></i>12 Jan 2021 - 11
+              Feb 2021
+            </p>
+            <p><i class="fa-solid fa-stopwatch fa-xl"></i>1 month</p>
           </div>
-          <div class="image-detail">
-            <div class="duration">
-              <p class="duration-title">Duration</p>
-              <p class="duration-date">
-                <i class="fa-solid fa-calendar-days"> </i>
-                12 Jan 2021 - 11 Feb 2021
-              </p>
-              <p class="duration-time">
-                <i class="fa-regular fa-clock"> </i>
-                1 Month
-              </p>
-            </div>
-            <div class="technologies">
-              <p class="technologies-title">Technologies</p>
-              <div class="technologies-content">
-                <div class="technologies-left">
-                  <p>
-                    <i class="fa-brands fa-react fa-xl"> </i>
-                    ReactJs
-                  </p>
-                  <p>
-                    <i class="fa-brands fa-node-js fa-xl"> </i>
-                    NodeJs
-                  </p>
-                </div>
-                <div class="technologies-right">
-                  <p>
-                    <i class="fa-brands fa-js fa-xl"> </i>
-                    JavaScript
-                  </p>
-                  <!-- <p style="display: flex; align-items: center">
-                    <img src="./assets/images/socket.png" alt="logo-socket" />
-                    Socket IO
-                  </p> -->
-                </div>
+          <div class="tech">
+            <h2>Technologies</h2>
+            <div class="tech-icon">
+              <div>
+                <img src="./assets/icon/reactjs.png" alt="reactjs" />
+                <p>React Js</p>
+              </div>
+              <div>
+                <img src="./assets/icon/nodejs.png" alt="nodejs" />
+                <p>Node Js</p>
+              </div>
+              <div>
+                <img src="./assets/icon/javascript.png" alt="javascript" />
+                <p>JavaScript</p>
+              </div>
+              <div>
+                <img src="./assets/icon/socket.png" alt="socket io" />
+                <p>Socket IO</p>
               </div>
             </div>
           </div>
         </div>
-        <div class="content">
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo autem
-            ad numquam ipsa, quisquam eius repudiandae reiciendis neque odit
-            commodi nobis perferendis quis voluptates sed consequuntur, qui
-            ducimus similique rerum. Lorem ipsum dolor sit amet consectetur
-            adipisicing elit. Eum quod rem dolore, tenetur minima aperiam
-            distinctio eaque in. Inventore repudiandae blanditiis cum quaerat
-            nihil assumenda ipsum distinctio culpa placeat animi.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae
-            sapiente doloremque dicta dignissimos itaque tenetur vel error
-            blanditiis accusamus libero autem officia veniam qui fuga cum ex
-            vitae, perferendis deserunt.
-          </p>
-          <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quam
-            facilis sapiente aliquid quos quisquam veritatis nemo, dolorem
-            corporis expedita repellendus natus ratione vitae molestias
-            perferendis, inventore nisi placeat ab! Dignissimos.
-          </p>
-        </div>
       </div>
+      <p class="project-description">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sit
+        amet finibus nisl, id sollicitudin tellus. Suspendisse feugiat sagittis
+        libero a blandit. Ut non varius nisl, vitae dapibus nisi. Fusce vel
+        vestibulum nunc. Nulla facilisi. Proin at leo placerat, congue leo id,
+        vulputate tortor. Duis egestas dignissim imperdiet. Donec ut consequat
+        elit. Aliquam justo velit, rutrum in felis ac, congue consectetur velit.
+        Integer vel odio vel massa consectetur congue. Etiam vel aliquet mi.
+        Nulla in posuere nisl. Maecenas id ipsum sit amet elit sodales placerat.
+        Donec condimentum purus dolor, placerat sodales ante ullamcorper
+        laoreet. Sed a massa facilisis, porttitor est ac, viverra nibh. Integer
+        ligula tellus, ultrices sodales eros at, tristique luctus dui.
+        Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere
+        cubilia curae; Integer faucibus mi quis mauris efficitur tempus. Cras
+        commodo viverra finibus. Donec fermentum eros nec orci ullamcorper, eget
+        efficitur magna finibus. Fusce consequat malesuada mattis. Donec egestas
+        mattis ante, quis pellentesque est euismod cursus. Fusce faucibus lorem
+        augue. Sed tristique odio ac convallis sagittis. Praesent commodo nisl
+        nunc, id gravida velit rhoncus auctor. Maecenas pretium ante a rutrum
+        laoreet. Cras quis nibh eu tellus consectetur feugiat et facilisis
+        libero. Aliquam luctus massa ante, ac blandit orci hendrerit ut. Sed
+        condimentum, ante vitae commodo efficitur, nisl libero ultricies mi, in
+        rhoncus massa nulla eget lectus. Lorem ipsum dolor sit amet, consectetur
+        adipiscing elit. Nam bibendum ante vel dolor accumsan dapibus.
+        Suspendisse dolor nisl, tincidunt et elit pellentesque, condimentum
+        sodales tortor. Vivamus tempor est bibendum enim interdum iaculis. Nunc
+        nec mi in erat commodo faucibus. Maecenas aliquam et dui quis rhoncus.
+        Cras eget efficitur quam. Proin ultricies, sapien eget feugiat
+        fermentum, nunc sapien accumsan massa, id auctor eros sem sed lectus.
+        Donec lacinia tristique risus, maximus volutpat tellus finibus eget.
+        Donec quis justo condimentum, sodales nisl sed, rutrum turpis. In hac
+        habitasse platea dictumst. Maecenas quis venenatis orci, in volutpat
+        leo. Ut in dolor est. Sed scelerisque sollicitudin cursus. Curabitur
+        hendrerit in augue quis varius. Donec blandit ultrices mattis. Fusce nec
+        sem eget turpis dignissim sodales eget vitae urna. Vestibulum vel
+        sollicitudin elit, vitae blandit metus. Ut odio nisi, semper non gravida
+        sit amet, vehicula ac sapien. Duis sit amet risus in neque pretium
+        blandit. Proin et malesuada nibh. Nunc viverra enim imperdiet,
+        consectetur libero eget, pretium lectus. Sed ultricies vulputate
+        finibus. Nunc nec ligula tincidunt, eleifend erat vitae, molestie enim.
+        Integer mollis tortor ut accumsan tincidunt. Proin eu aliquam mi.
+        Curabitur egestas justo ipsum, ut rutrum metus imperdiet vitae. Integer
+        tempor, felis nec consectetur vulputate, nunc magna volutpat metus, non
+        vestibulum lacus lacus vel metus. Phasellus vehicula imperdiet ipsum sed
+        imperdiet.
+      </p>
     </div>
 
     <!-- End -->
-    <script src="./assets/js/blog.js"></script>
+    <!-- Java Script -->
+    <script src="./assets/js/main.js"></script>
   </body>
 </html>

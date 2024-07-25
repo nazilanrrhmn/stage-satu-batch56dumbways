@@ -3,77 +3,100 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./assets/css/style.css" />
-    <title>Personal Website</title>
+    <link
+      rel="shortcut icon"
+      href="./assets/img/icons.png"
+      type="image/x-icon"
+    />
+    <title>B56 - Personal Projects</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="./assets/css/main.css" />
   </head>
   <body>
-    <!-- Navbar -->
-    <nav>
-      <div class="left">
-        <ul>
-          <img
-            class="logo"
-            src="./assets/images/dumbways.png"
-            alt="logo-image"
-          />
-          <li class="active">
-            <a href="./index.html">Home</a>
-          </li>
-          <!-- <li>
-            <a href="./blog.html">Blog</a>
-          </li> -->
+    <!-- Navbar Start -->
+    <nav class="navbar">
+      <ul class="navbar-ul">
+        <div class="navbar-left">
           <li>
-            <a href="./my_project.html">Projects</a>
+            <img
+              src="./assets/img/logo-zs.png"
+              alt="navbar-logo"
+              class="navbar-logo"
+            />
           </li>
-        </ul>
-      </div>
-      <div class="right">
-        <a href="./contact.html">Contact Me</a>
-      </div>
+          <li><a href="index.html" class="navbar-link active"> Home </a></li>
+          <li><a href="my_project.html" class="navbar-link"> Projects </a></li>
+          <li><a href="" class="navbar-link"> Testimonials </a></li>
+        </div>
+        <div class="navbar-right">
+          <li>
+            <a href="contact.html" class="navbar-contact-btn"> Contact </a>
+          </li>
+          <button id="hamburger-button" onclick="toggleHamburger()">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+        </div>
+      </ul>
     </nav>
+    <div class="hamburger-container hide">
+      <a href="index.html" class="hamburger-nav-link hamburger-active">
+        Home
+      </a>
+      <a href="my_project.html" class="hamburger-nav-link"> Projects </a>
+      <a href="#" class="hamburger-nav-link"> Testimonials </a>
+      <a href="contact.html" class="hamburger-nav-link"> Contact </a>
+    </div>
+    <!-- Navbar End -->
+
+    <!-- My Hero -->
+    <section class="container">
+      <!-- Form -->
+      <form>
+        <div>
+          <label for="nameInput">Name</label>
+          <input
+            id="nameInput"
+            type="text"
+            required
+            placeholder="input your name"
+          />
+        </div>
+
+        <div>
+          <label for="emailInput">Email</label>
+          <input id="emailInput" type="email" />
+        </div>
+
+        <div>
+          <label for="phoneInput">Phone Number</label>
+          <input id="phoneInput" type="tel" />
+        </div>
+
+        <div>
+          <label for="position">Position</label>
+          <select id="position">
+            <option hidden>Select Option!</option>
+            <option>Frontend Developer</option>
+            <option>Backend Developer</option>
+            <option>Fullstack Developer</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="address">Address</label>
+          <textarea id="address"></textarea>
+        </div>
+
+        <div>
+          <button type="submit" onclick="getData()">Submit</button>
+        </div>
+      </form>
+    </section>
     <!-- End -->
-
-    <!-- formulir -->
-    <form>
-      <div>
-        <label for="nameInput">Name</label>
-        <input
-          id="nameInput"
-          type="text"
-          required
-          placeholder="input your name"
-        />
-      </div>
-
-      <div>
-        <label for="emailInput">Email</label>
-        <input id="emailInput" type="email" />
-      </div>
-
-      <div>
-        <label for="phoneInput">Phone Number</label>
-        <input id="phoneInput" type="tel" />
-      </div>
-
-      <div>
-        <label for="position">Position</label>
-        <select id="position">
-          <option hidden>Select Option!</option>
-          <option>Frontend Developer</option>
-          <option>Backend Developer</option>
-          <option>Fullstack Developer</option>
-        </select>
-      </div>
-
-      <div>
-        <label for="address">Address</label> <textarea id="address"></textarea>
-      </div>
-
-      <div>
-        <button type="submit" onclick="getData()">Submit</button>
-      </div>
-    </form>
+    <!-- Java Script -->
+    <script src="./assets/js/main.js"></script>
   </body>
-
-  <script src="./Assets/js/script.js"></script>
 </html>
