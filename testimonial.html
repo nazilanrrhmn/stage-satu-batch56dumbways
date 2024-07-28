@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="./assets/img/icons.png"
+      type="image/x-icon"
+    />
+    <title>B56 - Personal Projects</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./assets/css/main.css" />
+    <link rel="stylesheet" href="./assets/css/testimonial.css" />
+  </head>
+  <body>
+    <!-- Navbar Start -->
+    <nav class="navbar">
+      <ul class="navbar-ul">
+        <div class="navbar-left">
+          <li>
+            <img
+              src="./assets/img/logo-zs.png"
+              alt="navbar-logo"
+              class="navbar-logo"
+            />
+          </li>
+          <li><a href="index.html" class="navbar-link active"> Home </a></li>
+          <li><a href="my_project.html" class="navbar-link"> Projects </a></li>
+          <li><a href="" class="navbar-link"> Testimonials </a></li>
+        </div>
+        <div class="navbar-right">
+          <li>
+            <a href="contact.html" class="navbar-contact-btn"> Contact </a>
+          </li>
+          <button id="hamburger-button" onclick="toggleHamburger()">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+        </div>
+      </ul>
+    </nav>
+    <div class="hamburger-container hide">
+      <a href="index.html" class="hamburger-nav-link hamburger-active">
+        Home
+      </a>
+      <a href="my_project.html" class="hamburger-nav-link"> Projects </a>
+      <a href="#" class="hamburger-nav-link"> Testimonials </a>
+      <a href="contact.html" class="hamburger-nav-link"> Contact </a>
+    </div>
+    <!-- Navbar End -->
+
+    <!-- My Hero -->
+    <section class="container">
+      <h1>Testimonials</h1>
+      <div class="container-rating">
+        <h2>Ranking by Stars</h2>
+        <div class="rating">
+          <button onclick="allTestimonials()" class="rating-btn">All</button>
+          <button onclick="testiByRating(1)" class="rating-btn">
+            1 <i class="fa-solid fa-star"></i>
+          </button>
+          <button onclick="testiByRating(2)" class="rating-btn">
+            2 <i class="fa-solid fa-star"></i>
+          </button>
+          <button onclick="testiByRating(3)" class="rating-btn">
+            3 <i class="fa-solid fa-star"></i>
+          </button>
+          <button onclick="testiByRating(4)" class="rating-btn">
+            4 <i class="fa-solid fa-star"></i>
+          </button>
+          <button onclick="testiByRating(5)" class="rating-btn">
+            5 <i class="fa-solid fa-star"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="testimonials" id="testimonials-list"></section>
+    <!-- End -->
+
+    <!-- Java Script -->
+    <script src="./assets/js/main.js"></script>
+    <script src="./assets/js/testimonial-hof.js"></script>
+    <!-- <script src="./assets/js/testimonial-oop.js"></script> -->
+  </body>
+</html>
