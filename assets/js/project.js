@@ -29,7 +29,7 @@ function renderProject() {
   dataProject.forEach((project, index) => {
     document.getElementById("content").innerHTML += `
         <div class="container-card" id="project-${index}">
-            <img src="./assets/images/luffy.jpg" alt="smartphone">
+            <img src="./assets/img/luffy.jpg" alt="img-profile">
             <h4><a href="./detail_project.html">${project.projectName}</a></h4>
             <span id="postTime-${index}">Posted: ${getPostTime(
       project.postAt
