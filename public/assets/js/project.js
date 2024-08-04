@@ -68,7 +68,7 @@ function renderProject() {
       project.postAt
     )}</span>
                       <div class="card-body">
-                        <a href="#" class="card-title">${
+                        <a href="/detail-project" class="card-title">${
                           project.projectName
                         }</a>
                         <p class="card-text">

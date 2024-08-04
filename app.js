@@ -27,6 +27,13 @@ app.get('/project', (req, res) => {
   });
 })
 
+app.get('/detail-project/', (req, res) => {
+  res.render('detail-project', {
+    layout: 'layouts/main-layout',
+    title: "B56 - Detail Project Pages"
+  });
+})
+
 app.get('/contact', (req, res) => {
   res.render('contact', {
     layout: 'layouts/main-layout',
