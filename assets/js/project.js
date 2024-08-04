@@ -76,7 +76,7 @@ function getDurationTime(time) {
 
   let restOfMonthInYear = Math.floor(
     (durationTime % (miliSecond * secondInDay * dayInMonth * monthInYear)) /
-      (miliSecond * secondInDay * dayInMonth)
+    (miliSecond * secondInDay * dayInMonth)
   );
 
   if (durationTimeInYear > 0) {
@@ -117,12 +117,12 @@ function getPostTime(postAt) {
   );
   let diffInYears = Math.floor(
     diff /
-      (miliSecond *
-        secondInMinute *
-        minuteInHour *
-        hourInDay *
-        dayInMonth *
-        monthInYear)
+    (miliSecond *
+      secondInMinute *
+      minuteInHour *
+      hourInDay *
+      dayInMonth *
+      monthInYear)
   );
 
   if (diffInYears > 0) {
