@@ -1,149 +1,276 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="shortcut icon"
-      href="./assets/img/icons.png"
-      type="image/x-icon"
-    />
-    <title>B56 - Personal Projects</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-    />
-    <link rel="stylesheet" href="./assets/css/main.css" />
-  </head>
-  <body>
-    <!-- Navbar Start -->
-    <nav class="navbar">
-      <ul class="navbar-ul">
-        <div class="navbar-left">
-          <li>
-            <img
-              src="./assets/img/logo-zs.png"
-              alt="navbar-logo"
-              class="navbar-logo"
-            />
-          </li>
-          <li><a href="index.html" class="navbar-link active"> Home </a></li>
-          <li><a href="my_project.html" class="navbar-link"> Projects </a></li>
-          <li>
-            <a href="testimonial.html" class="navbar-link"> Testimonials </a>
-          </li>
-        </div>
-        <div class="navbar-right">
-          <li>
-            <a href="contact.html" class="navbar-contact-btn"> Contact </a>
-          </li>
-          <button id="hamburger-button" onclick="toggleHamburger()">
-            <i class="fa-solid fa-bars"></i>
-          </button>
-        </div>
-      </ul>
-    </nav>
-    <div class="hamburger-container hide">
-      <a href="index.html" class="hamburger-nav-link hamburger-active">
-        Home
-      </a>
-      <a href="my_project.html" class="hamburger-nav-link"> Projects </a>
-      <a href="testimonial.html" class="hamburger-nav-link"> Testimonials </a>
-      <a href="contact.html" class="hamburger-nav-link"> Contact </a>
-    </div>
-    <!-- Navbar End -->
 
-    <!-- My Hero -->
-    <div class="project-detail">
-      <h1>Dumbways Web App</h1>
-      <div class="project-content">
-        <img
-          class="detail-img"
-          src="./assets/img/luffy.jpg"
-          alt="project image"
-        />
-        <div class="detail-data">
-          <div>
-            <h2>Duration</h2>
-            <p>
-              <i class="fa-solid fa-calendar-days fa-xl"></i>12 Jan 2021 - 11
-              Feb 2021
-            </p>
-            <p><i class="fa-solid fa-stopwatch fa-xl"></i>1 month</p>
-          </div>
-          <div class="tech">
-            <h2>Technologies</h2>
-            <div class="tech-icon">
-              <div>
-                <img src="./assets/icon/reactjs.png" alt="reactjs" />
-                <p>React Js</p>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Detail</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="./assets/css/main.css">
+  <style>
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .checkbox-group {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .checkbox-group .form-check {
+      margin-right: 15px;
+    }
+
+    .card-img-top {
+      object-fit: cover;
+      height: 200px;
+      width: 100%;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+
+    .card-body {
+      padding: 20px;
+    }
+
+    .post-date {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 12px;
+    }
+
+    .card {
+      position: relative;
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .project-detail {
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .project-content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .detail-img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    .detail-data {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .duration-tech-container {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .duration,
+    .tech {
+      flex: 1;
+    }
+
+    .tech {
+      margin-left: 20px;
+    }
+
+    .tech-icon {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .tech-icon div {
+      text-align: center;
+      font-size: 1.2rem;
+    }
+
+    .project-description {
+      margin-top: 20px;
+      line-height: 1.6;
+      color: #555;
+      text-align: justify;
+    }
+
+    .card-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      border: none;
+      border-radius: 50px;
+      padding: 10px 20px;
+      transition: background-color 0.3s;
+    }
+
+    .btn-primary:hover {
+      background-color: #0056b3;
+    }
+
+    .btn-secondary {
+      background-color: #6c757d;
+      border: none;
+      padding: 10px 20px;
+      transition: background-color 0.3s;
+    }
+
+    .btn-secondary:hover {
+      background-color: #5a6268;
+    }
+
+    .btn-danger {
+      padding: 10px 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img src="./assets/img/logo-zs.png" alt="Logo" />
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="project.html">Projects</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="testimonial.html">Testimonials</a>
+          </li>
+        </ul>
+        <div class="d-flex ms-auto btn-right">
+          <a class="btn btn-danger" href="contact.html">Contact</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <!-- End Navbar -->
+
+  <section class="container mt-5">
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <!-- Project Detail Card -->
+        <div class="project-detail">
+          <h1>Dumbways Web App</h1>
+          <div class="project-content">
+            <img class="detail-img" src="./assets/img/luffy.jpg" alt="project image" />
+            <div class="detail-data">
+              <div class="duration-tech-container">
+                <div class="duration">
+                  <h2>Duration</h2>
+                  <p><i class="fa-solid fa-calendar-days fa-xl"></i> 12 Jan 2021 - 11 Feb 2021</p>
+                  <p><i class="fa-solid fa-stopwatch fa-xl"></i> 1 month</p>
+                </div>
+                <div class="tech">
+                  <h2>Technologies</h2>
+                  <div class="tech-icon">
+                    <div>
+                      <i class="fa-brands fa-react"></i>
+                      <p>React Js</p>
+                    </div>
+                    <div>
+                      <i class="fa-brands fa-node-js"></i>
+                      <p>Node Js</p>
+                    </div>
+                    <div>
+                      <i class="fa-brands fa-laravel"></i>
+                      <p>Laravel</p>
+                    </div>
+                    <div>
+                      <i class="fa-brands fa-bootstrap"></i>
+                      <p>Bootstrap</p>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div>
-                <img src="./assets/icon/nodejs.png" alt="nodejs" />
-                <p>Node Js</p>
-              </div>
-              <div>
-                <img src="./assets/icon/javascript.png" alt="javascript" />
-                <p>JavaScript</p>
-              </div>
-              <div>
-                <img src="./assets/icon/socket.png" alt="socket io" />
-                <p>Socket IO</p>
-              </div>
+              <p class="project-description">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sit amet finibus nisl, id
+                sollicitudin
+                tellus. Suspendisse feugiat sagittis libero a blandit. Ut non varius nisl, vitae dapibus nisi. Fusce vel
+                vestibulum nunc. Nulla facilisi. Proin at leo placerat, congue leo id, vulputate tortor. Duis egestas
+                dignissim imperdiet. Donec ut consequat elit. Aliquam justo velit, rutrum in felis ac, congue
+                consectetur
+                velit. Integer vel odio vel massa consectetur congue. Etiam vel aliquet mi. Nulla in posuere nisl.
+                Maecenas
+                id ipsum sit amet elit sodales placerat. Donec condimentum purus dolor, placerat sodales ante
+                ullamcorper
+                laoreet. Sed a massa facilisis, porttitor est ac, viverra nibh. Integer ligula tellus, ultrices sodales
+                eros
+                at, tristique luctus dui. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere
+                cubilia
+                curae; Integer faucibus mi quis mauris efficitur tempus. Cras commodo viverra finibus. Donec fermentum
+                eros
+                nec orci ullamcorper, eget efficitur magna finibus. Fusce consequat malesuada mattis. Donec egestas
+                mattis
+                ante, quis pellentesque est euismod cursus. Fusce faucibus lorem augue. Sed tristique odio ac convallis
+                sagittis. Praesent commodo nisl nunc, id gravida velit rhoncus auctor. Maecenas pretium ante a rutrum
+                laoreet. Cras quis nibh eu tellus consectetur feugiat et facilisis libero. Aliquam luctus massa ante, ac
+                blandit orci hendrerit ut.
+              </p>
             </div>
+          </div>
+          <div class="card-actions">
+            <a href="#" class="btn btn-secondary me-2">Edit</a>
+            <a href="#" class="btn btn-danger">Delete</a>
           </div>
         </div>
       </div>
-      <p class="project-description">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sit
-        amet finibus nisl, id sollicitudin tellus. Suspendisse feugiat sagittis
-        libero a blandit. Ut non varius nisl, vitae dapibus nisi. Fusce vel
-        vestibulum nunc. Nulla facilisi. Proin at leo placerat, congue leo id,
-        vulputate tortor. Duis egestas dignissim imperdiet. Donec ut consequat
-        elit. Aliquam justo velit, rutrum in felis ac, congue consectetur velit.
-        Integer vel odio vel massa consectetur congue. Etiam vel aliquet mi.
-        Nulla in posuere nisl. Maecenas id ipsum sit amet elit sodales placerat.
-        Donec condimentum purus dolor, placerat sodales ante ullamcorper
-        laoreet. Sed a massa facilisis, porttitor est ac, viverra nibh. Integer
-        ligula tellus, ultrices sodales eros at, tristique luctus dui.
-        Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere
-        cubilia curae; Integer faucibus mi quis mauris efficitur tempus. Cras
-        commodo viverra finibus. Donec fermentum eros nec orci ullamcorper, eget
-        efficitur magna finibus. Fusce consequat malesuada mattis. Donec egestas
-        mattis ante, quis pellentesque est euismod cursus. Fusce faucibus lorem
-        augue. Sed tristique odio ac convallis sagittis. Praesent commodo nisl
-        nunc, id gravida velit rhoncus auctor. Maecenas pretium ante a rutrum
-        laoreet. Cras quis nibh eu tellus consectetur feugiat et facilisis
-        libero. Aliquam luctus massa ante, ac blandit orci hendrerit ut. Sed
-        condimentum, ante vitae commodo efficitur, nisl libero ultricies mi, in
-        rhoncus massa nulla eget lectus. Lorem ipsum dolor sit amet, consectetur
-        adipiscing elit. Nam bibendum ante vel dolor accumsan dapibus.
-        Suspendisse dolor nisl, tincidunt et elit pellentesque, condimentum
-        sodales tortor. Vivamus tempor est bibendum enim interdum iaculis. Nunc
-        nec mi in erat commodo faucibus. Maecenas aliquam et dui quis rhoncus.
-        Cras eget efficitur quam. Proin ultricies, sapien eget feugiat
-        fermentum, nunc sapien accumsan massa, id auctor eros sem sed lectus.
-        Donec lacinia tristique risus, maximus volutpat tellus finibus eget.
-        Donec quis justo condimentum, sodales nisl sed, rutrum turpis. In hac
-        habitasse platea dictumst. Maecenas quis venenatis orci, in volutpat
-        leo. Ut in dolor est. Sed scelerisque sollicitudin cursus. Curabitur
-        hendrerit in augue quis varius. Donec blandit ultrices mattis. Fusce nec
-        sem eget turpis dignissim sodales eget vitae urna. Vestibulum vel
-        sollicitudin elit, vitae blandit metus. Ut odio nisi, semper non gravida
-        sit amet, vehicula ac sapien. Duis sit amet risus in neque pretium
-        blandit. Proin et malesuada nibh. Nunc viverra enim imperdiet,
-        consectetur libero eget, pretium lectus. Sed ultricies vulputate
-        finibus. Nunc nec ligula tincidunt, eleifend erat vitae, molestie enim.
-        Integer mollis tortor ut accumsan tincidunt. Proin eu aliquam mi.
-        Curabitur egestas justo ipsum, ut rutrum metus imperdiet vitae. Integer
-        tempor, felis nec consectetur vulputate, nunc magna volutpat metus, non
-        vestibulum lacus lacus vel metus. Phasellus vehicula imperdiet ipsum sed
-        imperdiet.
-      </p>
     </div>
+  </section>
 
-    <!-- End -->
-    <!-- Java Script -->
-    <script src="./assets/js/main.js"></script>
-  </body>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="./assets/js/main.js"></script>
+</body>
+
 </html>
