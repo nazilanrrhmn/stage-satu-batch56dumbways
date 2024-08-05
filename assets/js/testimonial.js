@@ -19,13 +19,22 @@ async function allTestimonials() {
     const testimonialsHTML = testimonials
       .map((testimonial) => {
         return `
-        <div class="testimonial">
-          <img 
-            src="${testimonial.images}"
-            class="profile-testi"
-          />
-          <p class="quotes">${testimonial.content}</p>
-          <p class="authors">${testimonial.author}</p>
+        <div class="testimonial-card">
+          <div class="card">
+            <img 
+              src="${testimonial.images}"
+              class="card-img-top"
+              alt="Testimonial image"
+            />
+            <div class="card-body">
+              <p class="card-text">"${testimonial.content}"</p>
+              <p class="card-title">${testimonial.author}</p>
+              <div class="star-rating">
+                ${'<i class="fas fa-star"></i>'.repeat(testimonial.rating)}
+                ${'<i class="far fa-star"></i>'.repeat(5 - testimonial.rating)}
+              </div>
+            </div>
+          </div>
         </div>
       `;
       })
@@ -47,13 +56,22 @@ async function filterTesti(rating) {
     const testimonialsHTML = filteredTestimonials
       .map((testimonial) => {
         return `
-        <div class="testimonial">
-          <img 
-            src="${testimonial.images}"
-            class="profile-testi"
-          />
-          <p class="quotes">${testimonial.content}</p>
-          <p class="authors">${testimonial.author}</p>
+        <div class="testimonial-card">
+          <div class="card">
+            <img 
+              src="${testimonial.images}"
+              class="card-img-top"
+              alt="Testimonial image"
+            />
+            <div class="card-body">
+              <p class="card-text">"${testimonial.content}"</p>
+              <p class="card-title">${testimonial.author}</p>
+              <div class="star-rating">
+                ${'<i class="fas fa-star"></i>'.repeat(testimonial.rating)}
+                ${'<i class="far fa-star"></i>'.repeat(5 - testimonial.rating)}
+              </div>
+            </div>
+          </div>
         </div>
       `;
       })
@@ -67,7 +85,7 @@ async function filterTesti(rating) {
 // Event listeners for filtering testimonials by rating
 document.querySelectorAll(".rating-btn").forEach((button) => {
   button.addEventListener("click", () => {
-    const rating = button.textContent.trim();
+    const rating = button.textContent.trim().split(" ")[0]; // Get the rating number
     if (rating === "All") {
       allTestimonials();
     } else {

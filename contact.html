@@ -1,104 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="shortcut icon"
-      href="./assets/img/icons.png"
-      type="image/x-icon"
-    />
-    <title>B56 - Personal Projects</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-    />
-    <link rel="stylesheet" href="./assets/css/main.css" />
-  </head>
-  <body>
-    <!-- Navbar Start -->
-    <nav class="navbar">
-      <ul class="navbar-ul">
-        <div class="navbar-left">
-          <li>
-            <img
-              src="./assets/img/logo-zs.png"
-              alt="navbar-logo"
-              class="navbar-logo"
-            />
-          </li>
-          <li><a href="index.html" class="navbar-link active"> Home </a></li>
-          <li><a href="my_project.html" class="navbar-link"> Projects </a></li>
-          <li>
-            <a href="testimonial.html" class="navbar-link"> Testimonials </a>
-          </li>
-        </div>
-        <div class="navbar-right">
-          <li>
-            <a href="contact.html" class="navbar-contact-btn"> Contact </a>
-          </li>
-          <button id="hamburger-button" onclick="toggleHamburger()">
-            <i class="fa-solid fa-bars"></i>
-          </button>
-        </div>
-      </ul>
-    </nav>
-    <div class="hamburger-container hide">
-      <a href="index.html" class="hamburger-nav-link hamburger-active">
-        Home
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>B56 - Personal Projects</title>
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+  <!-- Customize CSS -->
+  <link rel="stylesheet" href="assets/css/main.css" />
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">
+        <img src="assets/img/logo-zs.png" alt="Logo" />
       </a>
-      <a href="my_project.html" class="hamburger-nav-link"> Projects </a>
-      <a href="testimonial.html" class="hamburger-nav-link"> Testimonials </a>
-      <a href="contact.html" class="hamburger-nav-link"> Contact </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+        <ul class="navbar-nav" id="navbarNav">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/project.html">Projects</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/testimonial.html">Testimonials</a>
+          </li>
+        </ul>
+        <div class="d-flex ms-auto btn-right">
+          <a class="btn btn-danger" href="/contact.html">Contact</a>
+        </div>
+      </div>
     </div>
-    <!-- Navbar End -->
+  </nav>
+  <!-- End Nav -->
 
-    <!-- My Hero -->
-    <section class="container">
-      <!-- Form -->
-      <form>
-        <div>
-          <label for="nameInput">Name</label>
-          <input
-            id="nameInput"
-            type="text"
-            required
-            placeholder="input your name"
-          />
+  <!-- Contact Section -->
+  <section class="container mt-5">
+    <div class="contact-form">
+      <h2 class="text-center">Contact Me</h2>
+      <form id="contactForm">
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="nameInput">Name</label>
+              <input type="text" class="form-control" id="nameInput" required />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="emailInput">Email</label>
+              <input type="email" class="form-control" id="emailInput" required />
+            </div>
+          </div>
         </div>
 
-        <div>
-          <label for="emailInput">Email</label>
-          <input id="emailInput" type="email" />
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="phoneInput">Phone Number</label>
+              <input type="tel" class="form-control" id="phoneInput" required />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="position">Position</label>
+              <select class="form-select" id="position" required>
+                <option value="" disabled selected>
+                  Select your position
+                </option>
+                <option value="front-end">Front-End Developer</option>
+                < value="back-end">Back-End</ Developeroption>
+                <option value="fullstack">Fullstack Developer</option>
+              </select>
+            </div>
+          </div>
         </div>
 
-        <div>
-          <label for="phoneInput">Phone Number</label>
-          <input id="phoneInput" type="tel" />
+        <div class="mb-3">
+          <div class="form-group">
+            <label for="address">Address</label>
+            <textarea class="form-control" id="address" rows="3" required></textarea>
+          </div>
         </div>
 
-        <div>
-          <label for="position">Position</label>
-          <select id="position">
-            <option hidden>Select Option!</option>
-            <option>Frontend Developer</option>
-            <option>Backend Developer</option>
-            <option>Fullstack Developer</option>
-          </select>
-        </div>
-
-        <div>
-          <label for="address">Address</label>
-          <textarea id="address"></textarea>
-        </div>
-
-        <div>
-          <button type="submit" onclick="getData()">Submit</button>
+        <div class="d-flex justify-content-end">
+          <button type="submit" class="btn btn-primary">Send Message</button>
         </div>
       </form>
-    </section>
-    <!-- End -->
-    <!-- Java Script -->
-    <script src="./assets/js/main.js"></script>
-  </body>
+    </div>
+  </section>
+  <!-- End Contact -->
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+  </script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/project.js"></script>
+  <script src="assets/js/contact.js"></script>
+  <script src="assets/js/testimonial.js"></script>
+</body>
+
 </html>

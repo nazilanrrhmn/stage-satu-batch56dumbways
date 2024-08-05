@@ -1,23 +1,19 @@
-// Navbar
-function toggleHamburger() {
-  const hamburger = document.querySelector(".hamburger-container");
+// Nav is Active
+document.addEventListener('DOMContentLoaded', () => {
+  const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
 
-  hamburger.classList.toggle("hide");
-}
+  navLinks.forEach(link => {
+    link.addEventListener('click', function (event) {
+      event.preventDefault(); // Prevent default action
 
-// Contact
-function getData() {
-  event.preventDefault();
+      // Remove 'active' class from all nav-links
+      navLinks.forEach(nav => nav.classList.remove('active'));
 
-  let name = document.getElementById("nameInput").value;
-  let email = document.getElementById("emailInput").value;
-  let phoneInput = document.getElementById("phoneInput").value;
-  let position = document.getElementById("position").value;
-  let address = document.getElementById("address").value;
+      // Add 'active' class to clicked nav-link
+      this.classList.add('active');
 
-  console.log(name);
-  console.log(email);
-  console.log(phoneInput);
-  console.log(position);
-  console.log(address);
-}
+      // Optional: Navigate to the clicked link's href
+      window.location.href = this.getAttribute('href');
+    });
+  });
+});
