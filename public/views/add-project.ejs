@@ -1,0 +1,63 @@
+<!-- Project Section -->
+<section class="container mt-5">
+  <div class="row">
+    <!-- Create Project Form -->
+    <div class="col-12 mb-5">
+      <div class="project-form">
+        <h1 class="text-center mb-4">Add My Project</h1>
+        <form action="/add-project" method="POST" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="projectName">Project Name</label>
+            <input id="projectName" name="projectName" type="text" class="form-control" required
+              placeholder="Input your project name" />
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="startDate">Start Date</label>
+              <input type="date" id="startDate" name="startDate" class="form-control" required />
+            </div>
+            <div class="col-md-6">
+              <label for="endDate">End Date</label>
+              <input type="date" id="endDate" name="endDate" class="form-control" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" name="description" class="form-control" rows="3"
+              placeholder="Enter project description"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="technologies">Technologies</label>
+            <div class="checkbox-group">
+              <div class="form-check">
+                <input type="checkbox" id="checkNode" name="technologies" value="NodeJS" class="form-check-input" />
+                <label for="checkNode" class="form-check-label">NodeJS</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" id="checkReact" name="technologies" value="ReactJS" class="form-check-input" />
+                <label for="checkReact" class="form-check-label">ReactJS</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" id="checkPHP" name="technologies" value="PHP" class="form-check-input" />
+                <label for="checkPHP" class="form-check-label">PHP</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" id="checkLaravel" name="technologies" value="Laravel" class="form-check-input" />
+                <label for="checkLaravel" class="form-check-label">Laravel</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="uploadImage">Upload Image</label>
+            <input type="file" id="uploadImage" name="image" class="form-control" />
+          </div>
+          <div class="text-end">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+        <a href="/project" class="btn btn-secondary mt-3">Back to Project List</a>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Project -->
