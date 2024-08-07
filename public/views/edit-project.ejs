@@ -1,0 +1,62 @@
+<!-- Project Section -->
+<section class="container mt-5">
+  <div class="row">
+    <div class="col-12 mb-5">
+      <div class="project-form">
+        <h1 class="text-center mb-4">Edit My Project</h1>
+        <form action="/edit-project/<%= project.id %>" method="post" enctype="multipart/form-data">
+
+          <div class="form-group">
+            <label for="projectName">Project Name</label>
+            <input id="projectName" name="projectName" type="text" class="form-control" required
+              placeholder="Input your project name" value="<%= project.projectName %>" />
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="startDate">Start Date</label>
+              <input type="date" id="startDate" name="startDate" class="form-control" required
+                value="<%= project.startDate ? new Date(project.startDate).toISOString().split('T')[0] : '' %>" />
+            </div>
+            <div class="col-md-6">
+              <label for="endDate">End Date</label>
+              <input type="date" id="endDate" name="endDate" class="form-control" required
+                value="<%= project.endDate ? new Date(project.endDate).toISOString().split('T')[0] : '' %>" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" name="description" class="form-control" rows="3"
+              placeholder="Enter project description"><%= project.description %></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="technologies">Technologies</label>
+            <div class="checkbox-group">
+              <% ['NodeJS', 'ReactJS', 'PHP', 'Laravel'].forEach(tech => { %>
+              <div class="form-check">
+                <input type="checkbox" id="check<%= tech %>" name="technologies" value="<%= tech %>"
+                  class="form-check-input"
+                  <%= project.technologies && project.technologies.includes(tech) ? 'checked' : '' %> />
+                <label for="check<%= tech %>" class="form-check-label"><%= tech %></label>
+              </div>
+              <% }) %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="uploadImage">Upload Image</label>
+            <input type="file" id="uploadImage" name="image" class="form-control" value="<%= project.image %>" />
+          </div>
+
+          <div class="text-end">
+            <button type="submit" class="btn btn-primary">Update Project</button>
+          </div>
+        </form>
+        <a href="/project" class="btn btn-secondary mt-3">Back to Project List</a>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Project -->
