@@ -1,8 +1,13 @@
+'use strict';
+
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const {
+  Project
+} = require('./models'); // Import your model
 const app = express();
 const port = 3000;
 
@@ -13,7 +18,7 @@ app.use(express.urlencoded({
 
 // Using EJS
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'public/views'));
+app.set('views', path.join(__dirname, 'public/views')); // Correct views path
 
 // Third-party Middleware
 app.use(expressLayouts);
@@ -23,45 +28,23 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Set up multer for file uploads
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
+  destination: (req, file, cb) => {
     cb(null, path.join(__dirname, 'public/uploads/'));
   },
-  filename: function (req, file, cb) {
+  filename: (req, file, cb) => {
     cb(null, Date.now() + path.extname(file.originalname));
   }
 });
-
 const upload = multer({
-  storage: storage
+  storage
 });
 
-// Function to ensure projects.json file exists
+// Ensure projects.json file exists
 function ensureProjectsFile() {
   if (!fs.existsSync('projects.json')) {
     fs.writeFileSync('projects.json', JSON.stringify([]));
   }
 }
-
-// Hapus data yang tidak ada ID
-// function removeProjectsWithoutId() {
-//   ensureProjectsFile(); // Ensure the file exists
-//   let projects = [];
-//   try {
-//     projects = JSON.parse(fs.readFileSync('projects.json', 'utf8'));
-//   } catch (err) {
-//     console.error('Error reading projects file:', err);
-//   }
-
-//   // Filter out projects that do not have a valid ID
-//   const updatedProjects = projects.filter(p => p.id && !isNaN(p.id) && p.id > 0);
-
-//   // Save updated projects
-//   fs.writeFileSync('projects.json', JSON.stringify(updatedProjects, null, 2));
-// }
-
-// // Call this function when needed, e.g., on startup or as a cleanup task
-// removeProjectsWithoutId();
-
 
 // Home Page
 app.get('/', (req, res) => {
@@ -71,23 +54,22 @@ app.get('/', (req, res) => {
   });
 });
 
-// Project Page
-app.get('/project', (req, res) => {
-  ensureProjectsFile(); // Ensure the file exists
-  let projects = [];
+// Project Page (List all projects)
+app.get('/project', async (req, res) => {
   try {
-    projects = JSON.parse(fs.readFileSync('projects.json', 'utf8'));
+    const projects = await Project.findAll();
+    res.render('project', {
+      layout: 'layouts/main-layout',
+      title: "B56 - Project Page",
+      projects
+    });
   } catch (err) {
-    console.error('Error reading projects file:', err);
+    console.error('Error fetching projects:', err);
+    res.status(500).send('Server Error');
   }
-  res.render('project', {
-    layout: 'layouts/main-layout',
-    title: "B56 - Project Page",
-    projects
-  });
 });
 
-// Add Project Page
+// Add Project Page (Form)
 app.get('/add-project', (req, res) => {
   res.render('add-project', {
     layout: 'layouts/main-layout',
@@ -95,244 +77,149 @@ app.get('/add-project', (req, res) => {
   });
 });
 
-// Add Project Page
-app.post('/add-project', upload.single('image'), (req, res) => {
-  ensureProjectsFile(); // Ensure the file exists
-  let {
+// Add a new project
+app.post('/add-project', upload.single('image'), async (req, res) => {
+  const {
     projectName,
     startDate,
     endDate,
     description,
     technologies
   } = req.body;
-  let image = req.file ? `/uploads/${req.file.filename}` : "";
-
-  let durationTime = new Date(endDate) - new Date(startDate);
-
-  let projects = [];
-  try {
-    projects = JSON.parse(fs.readFileSync('projects.json', 'utf8'));
-  } catch (err) {
-    console.error('Error reading projects file:', err);
-  }
 
   // Ensure technologies is an array
-  technologies = Array.isArray(technologies) ? technologies : (technologies ? technologies.split(',') : []);
+  const techArray = Array.isArray(technologies) ? technologies : [technologies];
 
-  // Generate a unique ID for the new project
-  let projectId = projects.length > 0 ? projects[projects.length - 1].id + 1 : 1;
-
-  let project = {
-    id: projectId,
-    projectName,
-    durationTime,
-    postAt: new Date(),
-    description,
-    technologies,
-    image
-  };
-
-  projects.push(project);
-  fs.writeFileSync('projects.json', JSON.stringify(projects, null, 2));
-
-  res.redirect('/project');
+  try {
+    await Project.create({
+      projectName,
+      startDate,
+      endDate,
+      description,
+      technologies: techArray, // Store technologies as an array
+      image: req.file ? `/uploads/${req.file.filename}` : "",
+      postAt: new Date() // Set postAt to the current date
+    });
+    res.redirect('/project');
+  } catch (err) {
+    console.error('Error adding project:', err);
+    res.status(500).send('Server Error');
+  }
 });
 
-// Edit Project Page
-app.get('/edit-project/:projectId', (req, res) => {
-  const projectId = parseInt(req.params.projectId, 10); // Corrected parameter name
 
-  ensureProjectsFile(); // Ensure the file exists
-  let projects = [];
+
+// Edit a project
+app.get('/edit-project/:projectId', async (req, res) => {
+  const projectId = parseInt(req.params.projectId, 10);
+
   try {
-    projects = JSON.parse(fs.readFileSync('projects.json', 'utf8'));
-  } catch (err) {
-    console.error('Error reading projects file:', err);
-  }
+    const project = await Project.findByPk(projectId);
 
-  const project = projects.find(p => p.id === projectId);
+    if (!project) {
+      return res.status(404).send('<h1>404 - Project Not Found</h1>');
+    }
 
-  if (project) {
     res.render('edit-project', {
       layout: 'layouts/main-layout',
       title: "B56 - Edit Project",
       project
     });
-  } else {
-    res.status(404).send('<h1>404 - Project Not Found</h1>');
+  } catch (err) {
+    console.error('Error fetching project:', err);
+    res.status(500).send('Server Error');
   }
 });
 
-// Update Project (POST)
-app.post('/edit-project/:projectId', upload.single('image'), (req, res) => {
-  const projectId = parseInt(req.params.projectId, 10);
 
-  ensureProjectsFile(); // Ensure the file exists
-  let projects = [];
-  try {
-    projects = JSON.parse(fs.readFileSync('projects.json', 'utf8'));
-  } catch (err) {
-    console.error('Error reading projects file:', err);
-  }
-
-  const projectIndex = projects.findIndex(p => p.id === projectId);
-
-  if (projectIndex === -1) {
-    return res.status(404).send('<h1>404 - Project Not Found</h1>');
-  }
-
-  let {
+app.post('/edit-project/:projectId', upload.single('image'), async (req, res) => {
+  const projectId = parseInt(req.params.projectId, 10); // Ambil projectId dari parameter URL
+  const {
     projectName,
     startDate,
     endDate,
     description,
     technologies
   } = req.body;
-  let image = req.file ? `/uploads/${req.file.filename}` : "";
 
-  let durationTime = new Date(endDate) - new Date(startDate);
+  try {
+    // Fetch the current project to get the existing `postAt`
+    const project = await Project.findByPk(projectId);
+    if (!project) {
+      return res.status(404).send('<h1>404 - Project Not Found</h1>');
+    }
 
-  // Ensure technologies is an array
-  technologies = Array.isArray(technologies) ? technologies : (technologies ? technologies.split(',') : []);
+    // Convert technologies to a string if it is an array
+    const technologiesArray = Array.isArray(technologies) ? technologies : [technologies];
+    const technologiesString = technologiesArray.join(',');
 
-  // Update project details
-  projects[projectIndex] = {
-    id: projectId,
-    projectName,
-    startDate,
-    endDate,
-    durationTime,
-    postAt: projects[projectIndex].postAt, // Keep original postAt
-    description,
-    technologies,
-    image: image || projects[projectIndex].image // Keep original image if no new image uploaded
-  };
+    // Update project details
+    await Project.update({
+      projectName,
+      startDate,
+      endDate,
+      description,
+      technologies: technologiesString,
+      image: req.file ? `/uploads/${req.file.filename}` : project.image, // Preserve existing image if not updated
+      postAt: project.postAt // Keep original postAt value
+    }, {
+      where: {
+        id: projectId
+      }
+    });
 
-  // Save updated projects
-  fs.writeFileSync('projects.json', JSON.stringify(projects, null, 2));
-
-  res.redirect('/project');
+    res.redirect('/project');
+  } catch (err) {
+    console.error('Error updating project:', err);
+    res.status(500).send('Server Error');
+  }
 });
 
-// Delete Project (POST)
-app.post('/delete-project/:projectId', (req, res) => {
+
+// Delete Project
+app.post('/delete-project/:projectId', async (req, res) => {
   const projectId = parseInt(req.params.projectId, 10);
 
-  ensureProjectsFile(); // Ensure the file exists
-  let projects = [];
   try {
-    projects = JSON.parse(fs.readFileSync('projects.json', 'utf8'));
+    const deleted = await Project.destroy({
+      where: {
+        id: projectId
+      }
+    });
+
+    if (deleted) {
+      res.redirect('/project');
+    } else {
+      res.status(404).send('<h1>404 - Project Not Found</h1>');
+    }
   } catch (err) {
-    console.error('Error reading projects file:', err);
+    console.error('Error deleting project:', err);
+    res.status(500).send('Server Error');
   }
-
-  const updatedProjects = projects.filter(p => p.id !== projectId);
-
-  if (projects.length === updatedProjects.length) {
-    return res.status(404).send('<h1>404 - Project Not Found</h1>');
-  }
-
-  // Save updated projects
-  fs.writeFileSync('projects.json', JSON.stringify(updatedProjects, null, 2));
-
-  res.redirect('/project');
 });
 
+// Project Detail Page
+app.get('/detail-project/:projectId', async (req, res) => {
+  const projectId = parseInt(req.params.projectId, 10);
 
-
-// app.post('/edit-project/:projectId', upload.single('image'), (req, res) => {
-//   const projectId = parseInt(req.params.projectId, 10);
-
-//   ensureProjectsFile(); // Ensure the file exists
-//   let projects = [];
-//   try {
-//     projects = JSON.parse(fs.readFileSync('projects.json', 'utf8'));
-//   } catch (err) {
-//     console.error('Error reading projects file:', err);
-//   }
-
-//   const projectIndex = projects.findIndex(p => p.id === projectId);
-
-//   if (projectIndex === -1) {
-//     return res.status(404).send('<h1>404 - Project Not Found</h1>');
-//   }
-
-//   let {
-//     projectName,
-//     startDate,
-//     endDate,
-//     description,
-//     technologies
-//   } = req.body;
-//   let image = req.file ? `/uploads/${req.file.filename}` : projects[projectIndex].image;
-//   let durationTime = new Date(endDate) - new Date(startDate);
-
-//   // Ensure technologies is an array
-//   technologies = Array.isArray(technologies) ? technologies : (technologies ? technologies.split(',') : []);
-
-//   projects[projectIndex] = {
-//     id: projectId, // Ensure ID is maintained
-//     projectName,
-//     durationTime,
-//     postAt: projects[projectIndex].postAt, // Keep original post date
-//     description,
-//     technologies,
-//     image
-//   };
-
-//   fs.writeFileSync('projects.json', JSON.stringify(projects, null, 2));
-//   res.redirect('/project');
-// });
-// app.post('/delete-project/:projectId', (req, res) => {
-//   const projectId = parseInt(req.params.projectId, 10);
-
-//   ensureProjectsFile(); // Ensure the file exists
-//   let projects = [];
-//   try {
-//     projects = JSON.parse(fs.readFileSync('projects.json', 'utf8'));
-//   } catch (err) {
-//     console.error('Error reading projects file:', err);
-//   }
-
-//   const updatedProjects = projects.filter(p => p.id === projectId);
-
-//   if (updatedProjects.length === 0) {
-//     return res.status(404).send('<h1>404 - Project Not Found</h1>');
-//   }
-
-//   // Save updated projects
-//   fs.writeFileSync('projects.json', JSON.stringify(updatedProjects, null, 2));
-//   res.redirect('/project');
-// });
-
+  try {
+    const project = await Project.findByPk(projectId);
+    if (project) {
+      res.render('detail-project', {
+        layout: 'layouts/main-layout',
+        title: "B56 - Project Detail",
+        project
+      });
+    } else {
+      res.status(404).send('<h1>404 - Project Not Found</h1>');
+    }
+  } catch (err) {
+    console.error('Error fetching project details:', err);
+    res.status(500).send('Server Error');
+  }
+});
 
 // Testimonial Page
-
-app.get('/detail-project/:projectId', (req, res) => {
-  const projectId = parseInt(req.params.projectId, 10);
-
-  ensureProjectsFile(); // Ensure the file exists
-  let projects = [];
-  try {
-    projects = JSON.parse(fs.readFileSync('projects.json', 'utf8'));
-  } catch (err) {
-    console.error('Error reading projects file:', err);
-  }
-
-  const project = projects.find(p => p.id === projectId);
-
-  if (project) {
-    res.render('detail-project', {
-      layout: 'layouts/main-layout',
-      title: "B56 - Project Detail",
-      project
-    });
-  } else {
-    res.status(404).send('<h1>404 - Project Not Found</h1>');
-  }
-});
-
-
 app.get('/testimonial', (req, res) => {
   res.render('testimonial', {
     layout: 'layouts/main-layout',

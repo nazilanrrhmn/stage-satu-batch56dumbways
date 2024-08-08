@@ -21,7 +21,12 @@
             <p class="card-text">
               <%= project.description %>
             </p>
-            <strong>Technologies:</strong> <%= project.technologies.join(', ') %>
+            <strong>Technologies:</strong>
+            <% 
+              // Ensure project.technologies is an array
+              const techArray = Array.isArray(project.technologies) ? project.technologies : project.technologies ? project.technologies.split(',') : [];
+            %>
+            <%= techArray.join(', ') %>
             <div class="card-actions d-flex justify-content-end">
               <a href="/edit-project/<%= project.id %>" role="button" class="btn btn-secondary me-2">Edit</a>
               <form action="/delete-project/<%= project.id %>" method="post" style="display:inline;">
@@ -33,6 +38,5 @@
       </div>
       <% }); %>
     </div>
-  </div>
   </div>
 </section>
