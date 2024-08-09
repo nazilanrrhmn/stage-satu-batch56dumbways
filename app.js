@@ -39,13 +39,6 @@ const upload = multer({
   storage
 });
 
-// Ensure projects.json file exists
-function ensureProjectsFile() {
-  if (!fs.existsSync('projects.json')) {
-    fs.writeFileSync('projects.json', JSON.stringify([]));
-  }
-}
-
 // Home Page
 app.get('/', (req, res) => {
   res.render('index', {
@@ -106,8 +99,6 @@ app.post('/add-project', upload.single('image'), async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
-
-
 
 // Edit a project
 app.get('/edit-project/:projectId', async (req, res) => {
@@ -175,7 +166,6 @@ app.post('/edit-project/:projectId', upload.single('image'), async (req, res) =>
   }
 });
 
-
 // Delete Project
 app.post('/delete-project/:projectId', async (req, res) => {
   const projectId = parseInt(req.params.projectId, 10);
@@ -226,28 +216,6 @@ app.get('/detail-project/:projectId', async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
-
-
-// Project Detail Page
-// app.get('/detail-project/:projectId', async (req, res) => {
-//   const projectId = parseInt(req.params.projectId, 10);
-
-//   try {
-//     const project = await Project.findByPk(projectId);
-//     if (project) {
-//       res.render('detail-project', {
-//         layout: 'layouts/main-layout',
-//         title: "B56 - Project Detail",
-//         project
-//       });
-//     } else {
-//       res.status(404).send('<h1>404 - Project Not Found</h1>');
-//     }
-//   } catch (err) {
-//     console.error('Error fetching project details:', err);
-//     res.status(500).send('Server Error');
-//   }
-// });
 
 // Testimonial Page
 app.get('/testimonial', (req, res) => {
