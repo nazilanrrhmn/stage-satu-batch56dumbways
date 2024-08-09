@@ -5,7 +5,6 @@
       <div class="project-form">
         <h1 class="text-center mb-4">Edit My Project</h1>
         <form action="/edit-project/<%= project.id %>" method="post" enctype="multipart/form-data">
-
           <div class="form-group">
             <label for="projectName">Project Name</label>
             <input id="projectName" name="projectName" type="text" class="form-control" required
@@ -34,11 +33,11 @@
           <div class="form-group">
             <label for="technologies">Technologies</label>
             <div class="checkbox-group">
+              <% const techArray = Array.isArray(project.technologies) ? project.technologies : (project.technologies ? project.technologies.split(',') : []); %>
               <% ['NodeJS', 'ReactJS', 'PHP', 'Laravel'].forEach(tech => { %>
               <div class="form-check">
                 <input type="checkbox" id="check<%= tech %>" name="technologies" value="<%= tech %>"
-                  class="form-check-input"
-                  <%= project.technologies && project.technologies.includes(tech) ? 'checked' : '' %> />
+                  class="form-check-input" <%= techArray.includes(tech) ? 'checked' : '' %> />
                 <label for="check<%= tech %>" class="form-check-label"><%= tech %></label>
               </div>
               <% }) %>
@@ -47,7 +46,10 @@
 
           <div class="form-group">
             <label for="uploadImage">Upload Image</label>
-            <input type="file" id="uploadImage" name="image" class="form-control" value="<%= project.image %>" />
+            <input type="file" id="uploadImage" name="image" class="form-control" />
+            <% if (project.image) { %>
+            <img src="<%= project.image %>" alt="Project Image" class="img-thumbnail mt-3" style="max-width: 200px;" />
+            <% } %>
           </div>
 
           <div class="text-end">

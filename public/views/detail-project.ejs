@@ -35,11 +35,11 @@
                     };
 
                     project.technologies.forEach(tech => {
-                      let iconClass = techIcons[tech] || 'default-icon'; // Use a default class if technology is not mapped
+                      let iconClass = techIcons[tech.trim()] || 'default-icon'; // Use a default class if technology is not mapped
                   %>
                   <div class="tech-item">
                     <i class="fa-brands fa-<%= iconClass %>"></i>
-                    <p><%= tech %></p>
+                    <p><%= tech.trim() %></p>
                   </div>
                   <% }); %>
                 </div>
@@ -62,7 +62,6 @@
             </form>
           </div>
         </div>
-
       </div>
     </div>
   </div>
