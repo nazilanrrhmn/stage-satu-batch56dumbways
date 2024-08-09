@@ -200,17 +200,25 @@ app.post('/delete-project/:projectId', async (req, res) => {
 
 // Project Detail Page
 app.get('/detail-project/:projectId', async (req, res) => {
-  const projectId = parseInt(req.params.projectId, 10);
+  const projectId = parseInt(req.params.projectId, 10); // Ambil projectId dari parameter URL
 
   try {
+    // Cek apakah projectId valid
+    if (isNaN(projectId)) {
+      return res.status(400).send('<h1>400 - Bad Request</h1>');
+    }
+
+    // Fetch project details
     const project = await Project.findByPk(projectId);
     if (project) {
+      // Render halaman detail proyek
       res.render('detail-project', {
         layout: 'layouts/main-layout',
         title: "B56 - Project Detail",
         project
       });
     } else {
+      // Jika proyek tidak ditemukan
       res.status(404).send('<h1>404 - Project Not Found</h1>');
     }
   } catch (err) {
@@ -218,6 +226,28 @@ app.get('/detail-project/:projectId', async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+
+
+// Project Detail Page
+// app.get('/detail-project/:projectId', async (req, res) => {
+//   const projectId = parseInt(req.params.projectId, 10);
+
+//   try {
+//     const project = await Project.findByPk(projectId);
+//     if (project) {
+//       res.render('detail-project', {
+//         layout: 'layouts/main-layout',
+//         title: "B56 - Project Detail",
+//         project
+//       });
+//     } else {
+//       res.status(404).send('<h1>404 - Project Not Found</h1>');
+//     }
+//   } catch (err) {
+//     console.error('Error fetching project details:', err);
+//     res.status(500).send('Server Error');
+//   }
+// });
 
 // Testimonial Page
 app.get('/testimonial', (req, res) => {
