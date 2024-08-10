@@ -34,12 +34,17 @@
                       // Add more mappings as needed
                     };
 
-                    project.technologies.forEach(tech => {
-                      let iconClass = techIcons[tech.trim()] || 'default-icon'; // Use a default class if technology is not mapped
+                    // Ensure project.technologies is an array
+                    let technologies = Array.isArray(project.technologies) 
+                      ? project.technologies 
+                      : project.technologies ? project.technologies.split(',').map(tech => tech.trim()) : [];
+
+                    technologies.forEach(tech => {
+                      let iconClass = techIcons[tech] || 'default-icon'; // Use a default class if technology is not mapped
                   %>
                   <div class="tech-item">
                     <i class="fa-brands fa-<%= iconClass %>"></i>
-                    <p><%= tech.trim() %></p>
+                    <p><%= tech %></p>
                   </div>
                   <% }); %>
                 </div>

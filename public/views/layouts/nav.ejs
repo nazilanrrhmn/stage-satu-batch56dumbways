@@ -2,26 +2,33 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
   <div class="container-fluid">
     <a class="navbar-brand" href="/">
-      <img src="assets/img/logo-zs.png" alt="Logo" />
+      <img src="/assets/img/logo-zs.png" alt="Logo" />
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
-      <ul class="navbar-nav" id="navbarNav">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a class="nav-link" href="/">Home</a>
         </li>
+        <% if (isLogin) { %>
         <li class="nav-item">
           <a class="nav-link" href="/project">Projects</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/testimonial">Testimonials</a>
         </li>
+        <% } %>
       </ul>
-      <div class="d-flex ms-auto btn-right">
-        <a class="btn btn-danger" href="/contact">Contact</a>
+      <div class="d-flex ms-auto">
+        <% if (isLogin) { %>
+        <a class="btn btn-danger me-2" href="/contact">Contact</a>
+        <a class="auth" href="/logout"><i class="fa-solid fa-user me-2"></i><%= user.username.toUpperCase() %></a>
+        <% } else { %>
+        <a class="auth" href="/login"><i class="fa-solid fa-arrow-right-to-bracket me-2"></i> Login</a>
+        <% } %>
       </div>
     </div>
   </div>
