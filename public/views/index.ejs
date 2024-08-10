@@ -2,8 +2,8 @@
 <section class="container mt-5">
   <div class="row">
     <div class="col-md-8 mb-4 mt-5">
-      <div class="display-4" style="font-size: 2.5rem; font-weight: 600;">Hi, Welcome to my hut</div>
-      <p class="lead" style="text-align: justify">
+      <h1 class="display-4 text-start" style="font-size: 2.5rem; font-weight: 600;">Hi, Welcome to my hut</h1>
+      <p class="lead hero-description">
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est eaque
         optio rerum tenetur at! Cupiditate, nesciunt nam autem quibusdam
         quaerat tempore totam pariatur quam perspiciatis officia in
@@ -11,32 +11,39 @@
         maiores, eveniet aliquam, excepturi officia repudiandae impedit
         esse, at sapiente iusto ducimus repellendus!
       </p>
-      <div class="d-flex contact-me mb-4">
+      <div class="d-flex mb-4">
+        <% if (isLogin) { %>
         <a href="contact" class="btn btn-primary me-3">Contact</a>
+        <% } %>
         <a href="#" class="btn btn-outline-primary">Download CV <i class="fa fa-download"></i></a>
       </div>
       <div class="social-media mb-4">
-        <h4>Find Me on</h4>
-        <a href="#" class="me-3 social-icon">
-          <i class="fa-brands fa-linkedin"></i>
-        </a>
-        <a href="#" class="me-3 social-icon">
-          <i class="fa-brands fa-instagram"></i>
-        </a>
-        <a href="#" class="me-3 social-icon">
-          <i class="fa-brands fa-facebook"></i>
-        </a>
-        <a href="#" class="social-icon">
-          <i class="fa-brands fa-github"></i>
-        </a>
+        <h4 class="mb-3">Find Me on</h4>
+        <div class="d-flex">
+          <a href="#" class="me-3 social-icon">
+            <i class="fa-brands fa-linkedin"></i>
+          </a>
+          <a href="#" class="me-3 social-icon">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+          <a href="#" class="me-3 social-icon">
+            <i class="fa-brands fa-facebook"></i>
+          </a>
+          <a href="#" class="social-icon">
+            <i class="fa-brands fa-github"></i>
+          </a>
+        </div>
       </div>
     </div>
     <div class="col-md-4 mb-4">
       <div class="card shadow-sm">
-        <img src="assets/img/hero.png" class="card-img-top" alt="Hero Image" style="height: 300px; object-fit: cover" />
+        <img src="assets/img/hero.png" class="card-img-top" alt="Hero Image"
+          style="height: 400px; object-fit: cover;" />
         <div class="card-body text-center">
-          <h1 class="card-title">Nazila Nur Rohman</h1>
-          <p class="card-text">Fullstack Developer</p>
+          <div>
+            <h2 class="card-title">Nazila Nur Rohman</h2>
+            <p class="card-text text-center mt-0">Fullstack Developer</p>
+          </div>
         </div>
       </div>
     </div>
