@@ -4,19 +4,18 @@ const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
 const multer = require('multer');
 const path = require('path');
-const fs = require('fs');
 const session = require('express-session');
 const bcrypt = require('bcrypt');
 const {
   Project
-} = require('./models'); // Import your model
+} = require('./models');
 const {
   QueryTypes
 } = require('sequelize');
-const sequelize = require('./models').sequelize; // Assuming your Sequelize instance is exported from models
+const sequelize = require('./models').sequelize;
+
 const app = express();
 const port = 3000;
-
 const saltRounds = 10; // Number of salt rounds for hashing
 
 // Middleware to parse form data
@@ -39,7 +38,7 @@ app.use(session({
 
 // Using EJS
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'public/views')); // Correct views path
+app.set('views', path.join(__dirname, 'public/views'));
 
 // Third-party Middleware
 app.use(expressLayouts);
@@ -59,105 +58,6 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage
 });
-
-// Ensure projects.json file exists
-function ensureProjectsFile() {
-  if (!fs.existsSync('projects.json')) {
-    fs.writeFileSync('projects.json', JSON.stringify([]));
-  }
-}
-
-// Login Function
-async function login(req, res) {
-  try {
-    console.log(req.body);
-
-    const query = `SELECT * FROM "Users" WHERE email = :email`;
-    const user = await sequelize.query(query, {
-      replacements: {
-        email: req.body.email
-      },
-      type: QueryTypes.SELECT
-    });
-
-    if (user.length === 0) {
-      console.log("Email belum terdaftar");
-      res.redirect('/login');
-      return;
-    }
-
-    // Compare the entered password with the hashed password
-    const match = await bcrypt.compare(req.body.password, user[0].password);
-    if (!match) {
-      console.log("Password salah");
-      res.redirect('/login');
-      return;
-    } else {
-      req.session.user = user[0];
-      req.session.isLogin = true;
-      console.log("Login Berhasil");
-      res.redirect('/');
-    }
-  } catch (error) {
-    console.log(error);
-    res.status(500).send('Server Error');
-  }
-}
-
-// Register Function
-async function register(req, res) {
-  try {
-    console.log(req.body);
-
-    const {
-      username,
-      email,
-      password
-    } = req.body;
-
-    // Validate input
-    if (!username || !email || !password) {
-      console.log("All fields are required");
-      return res.redirect('/register?error=All fields are required');
-    }
-
-    // Check if the email already exists
-    const query = `SELECT * FROM "Users" WHERE email = :email`;
-    const existingUser = await sequelize.query(query, {
-      replacements: {
-        email
-      },
-      type: QueryTypes.SELECT
-    });
-
-    if (existingUser.length > 0) {
-      console.log("Email sudah terdaftar");
-      return res.redirect('/register?error=Email sudah terdaftar');
-    }
-
-    // Hash the password
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
-
-    // Insert new user
-    const insertQuery = `INSERT INTO "Users" 
-                          (username, email, password, "createdAt", "updatedAt")
-                          VALUES 
-                          (:username, :email, :password, NOW(), NOW())`;
-
-    await sequelize.query(insertQuery, {
-      replacements: {
-        username,
-        email,
-        password: hashedPassword
-      }
-    });
-
-    res.redirect('/login?success=Registration successful');
-  } catch (error) {
-    console.log(error);
-    res.status(500).send('Server Error');
-  }
-}
 
 // Middleware to attach session data to res.locals
 app.use((req, res, next) => {
@@ -183,13 +83,34 @@ app.get('/login', (req, res) => {
 });
 
 // Handle Login Form Submission
-app.post('/login', login);
+app.post('/login', async (req, res) => {
+  try {
+    const query = `SELECT * FROM "Users" WHERE email = :email`;
+    const user = await sequelize.query(query, {
+      replacements: {
+        email: req.body.email
+      },
+      type: QueryTypes.SELECT
+    });
+
+    if (user.length === 0 || !(await bcrypt.compare(req.body.password, user[0].password))) {
+      res.redirect('/login');
+      return;
+    }
+
+    req.session.user = user[0];
+    req.session.isLogin = true;
+    res.redirect('/');
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Server Error');
+  }
+});
 
 // Registration Page
 app.get('/register', (req, res) => {
   const error = req.query.error;
   const success = req.query.success;
-
   res.render('register', {
     layout: 'layouts/main-layout',
     title: "B56 - Register",
@@ -199,9 +120,46 @@ app.get('/register', (req, res) => {
 });
 
 // Handle Registration Form Submission
-app.post('/register', register);
+app.post('/register', async (req, res) => {
+  try {
+    const {
+      username,
+      email,
+      password
+    } = req.body;
 
-// LOGOUT
+    if (!username || !email || !password) {
+      return res.redirect('/register?error=All fields are required');
+    }
+
+    const existingUser = await sequelize.query(`SELECT * FROM "Users" WHERE email = :email`, {
+      replacements: {
+        email
+      },
+      type: QueryTypes.SELECT
+    });
+
+    if (existingUser.length > 0) {
+      return res.redirect('/register?error=Email sudah terdaftar');
+    }
+
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    await sequelize.query(`INSERT INTO "Users" (username, email, password, "createdAt", "updatedAt") VALUES (:username, :email, :password, NOW(), NOW())`, {
+      replacements: {
+        username,
+        email,
+        password: hashedPassword
+      }
+    });
+
+    res.redirect('/login?success=Registration successful');
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Server Error');
+  }
+});
+
+// Logout
 app.get('/logout', (req, res) => {
   req.session.destroy(err => {
     if (err) {
@@ -269,7 +227,6 @@ app.get('/edit-project/:projectId', async (req, res) => {
 
   try {
     const project = await Project.findByPk(projectId);
-
     if (!project) {
       return res.status(404).send('<h1>404 - Project Not Found</h1>');
     }
@@ -302,14 +259,13 @@ app.post('/edit-project/:projectId', upload.single('image'), async (req, res) =>
     }
 
     const technologiesArray = Array.isArray(technologies) ? technologies : [technologies];
-    const technologiesString = technologiesArray.join(',');
 
     await Project.update({
       projectName,
       startDate,
       endDate,
       description,
-      technologies: technologiesString,
+      technologies: technologiesArray,
       image: req.file ? `/uploads/${req.file.filename}` : project.image,
       postAt: project.postAt
     }, {
@@ -335,7 +291,6 @@ app.post('/delete-project/:projectId', async (req, res) => {
         id: projectId
       }
     });
-
     if (deleted) {
       res.redirect('/project');
     } else {
